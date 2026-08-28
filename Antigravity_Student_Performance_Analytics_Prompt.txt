@@ -1,0 +1,724 @@
+ANTIGRAVITY MASTER PROMPT
+=============================
+
+PROJECT: STUDENT PERFORMANCE PREDICTION ANALYTICS
+PURPOSE: HACKATHON FUNCTIONAL PROTOTYPE
+
+You are an expert full-stack developer, ML engineer, UI/UX designer, and software architect.
+
+Build a functional, polished, hackathon-ready web application called:
+
+"Student Performance Prediction Analytics"
+
+PROJECT OBJECTIVE
+-----------------
+The system should identify students who may be at risk of underperforming early so teachers can intervene before the problem becomes serious.
+
+Core flow:
+
+Student Data
+    ↓
+Data Processing
+    ↓
+Feature Engineering
+    ↓
+ML Prediction
+    ↓
+Risk Score
+    ↓
+Explainable Insights
+    ↓
+Teacher Dashboard
+    ↓
+Alerts + Recommendations
+
+This is a prototype for a hackathon. Prioritize reliability, working features, good UI, realistic demo data, explainability, and a smooth 3–5 minute demonstration.
+
+Do not over-engineer the project.
+
+TECH STACK
+----------
+Frontend:
+- React
+- Vite
+- JavaScript or TypeScript
+- Modern CSS
+- Chart.js or Recharts
+
+Backend:
+- Python
+- FastAPI
+
+ML:
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- XGBoost if practical
+
+Database:
+- PostgreSQL
+- Provide SQLite fallback if PostgreSQL becomes a setup blocker
+
+API:
+- REST API
+
+UI/UX
+-----
+Create a modern education-technology SaaS dashboard.
+
+Style:
+- Clean
+- Professional
+- Modern
+- Minimal
+- Responsive
+- Suitable for a hackathon presentation
+
+Use a professional blue/white technology-oriented design.
+
+Risk colors:
+- Green = Low Risk
+- Yellow/Orange = Medium Risk
+- Red = High Risk
+
+Use cards, charts, tables, badges, icons, clear navigation, and subtle transitions.
+
+Avoid excessive animations and clutter.
+
+APPLICATION PAGES
+-----------------
+
+1. LOGIN
+
+Create:
+- Email
+- Password
+- Login button
+
+Prototype demo credentials:
+Email: teacher@example.com
+Password: teacher123
+
+After login, redirect to Dashboard.
+
+Do not implement complicated authentication.
+
+2. TEACHER DASHBOARD
+
+Sidebar:
+- Dashboard
+- Students
+- Predictions
+- Alerts
+- Analytics
+- Recommendations
+- Settings
+
+Top navigation:
+- Search
+- Notifications
+- Teacher profile
+
+Dashboard statistics:
+- Total Students
+- Low Risk
+- Medium Risk
+- High Risk
+- Average Attendance
+
+Example demo values can be generated from the demo dataset. Do not hard-code them if the backend is available.
+
+Charts:
+- Risk Distribution doughnut/pie chart
+- Performance Trend line chart
+- Attendance vs Performance scatter chart
+- Risk Factors bar chart
+
+Risk factors:
+- Low attendance
+- Falling grades
+- Low assignment completion
+- Low LMS engagement
+- Behavioral indicators
+
+3. HIGH-RISK STUDENTS
+
+Create a "Students Requiring Attention" section.
+
+Columns:
+- Student ID
+- Student Name
+- Grade
+- Attendance
+- GPA
+- Engagement
+- Risk Score
+- Risk Level
+- Action
+
+Clicking View must open Student Details.
+
+4. STUDENTS PAGE
+
+Features:
+- Search
+- Filter by risk
+- Filter by class/grade
+- Sort by risk score
+- View student details
+
+Columns:
+- Student ID
+- Name
+- Grade
+- GPA
+- Attendance
+- Assignment Completion
+- LMS Engagement
+- Risk Score
+- Risk Level
+
+5. STUDENT DETAILS
+
+Display:
+- Student Name
+- Student ID
+- Class/Grade
+- Risk Score
+- Risk Level
+- GPA
+- Previous grades
+- Current grades
+- Attendance
+- Assignment completion
+- LMS login frequency
+- Class participation
+- Behavioral indicator
+
+Charts:
+- Academic Performance Trend
+- Attendance Trend
+- Assignment Completion
+- LMS Engagement
+
+6. EXPLAINABLE INSIGHTS
+
+This is one of the most important features.
+
+Create a section:
+"Why is this student at risk?"
+
+Example reasons:
+- Attendance is below 75%
+- Recent test scores are declining
+- Assignment completion is low
+- LMS engagement has decreased
+
+Do not generate random explanations.
+
+The explanation must use the student's actual feature values and prediction logic.
+
+7. PERSONALIZED RECOMMENDATIONS
+
+Create:
+"Recommended Interventions"
+
+Rules can include:
+
+IF attendance < 75%:
+"Schedule attendance counseling."
+
+IF assignment completion < 60%:
+"Provide assignment support and mentoring."
+
+IF recent marks are falling:
+"Recommend faculty mentoring and additional academic support."
+
+IF LMS engagement is low:
+"Encourage regular LMS activity and provide learning resources."
+
+Recommendations must depend on actual risk factors.
+
+8. PREDICTION PAGE
+
+Create a prediction form.
+
+Inputs:
+- Student ID
+- Previous GPA
+- Average Test Score
+- Attendance Percentage
+- Assignment Completion Percentage
+- LMS Login Frequency
+- Class Participation
+- Behavioral Indicator
+- Grade Level
+
+Button:
+"PREDICT PERFORMANCE RISK"
+
+Result:
+- Risk Score: 0–100%
+- Risk Level: Low / Medium / High
+- Key Risk Factors
+- Recommended Actions
+
+9. RISK CALCULATION
+
+Create a transparent prototype calculation.
+
+Suggested weights:
+- Attendance: 25%
+- Academic performance: 30%
+- Assignment completion: 15%
+- LMS engagement: 15%
+- Participation: 10%
+- Behavioral indicator: 5%
+
+Normalize values before calculating.
+
+Risk score:
+0–39 = LOW RISK
+40–69 = MEDIUM RISK
+70–100 = HIGH RISK
+
+Keep thresholds and weights configurable.
+
+If a trained ML model is available, use ML prediction instead of the fallback calculation.
+
+Do not claim mock calculations are real ML.
+
+10. MACHINE LEARNING
+
+Create a proper ML module.
+
+Dataset fields:
+- student_id
+- age
+- grade
+- previous_gpa
+- test_score
+- attendance_percentage
+- assignment_completion
+- lms_login_frequency
+- class_participation
+- behavior_score
+- risk_label
+
+Target:
+risk_label
+
+Classes:
+- Low
+- Medium
+- High
+
+Use:
+- 80/20 train/test split
+- preprocessing
+- feature encoding
+- missing value handling
+
+Benchmark:
+1. Logistic Regression
+2. Random Forest
+3. XGBoost if practical
+4. MLP/Neural Network if practical
+
+Evaluate:
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+
+Select the best practical model.
+
+Save the trained model.
+
+Create a reusable prediction function.
+
+IMPORTANT:
+Do not invent ML metrics.
+Only display metrics calculated from the actual prototype dataset.
+Clearly label generated data and evaluation results as prototype/demo results.
+
+11. BACKEND API
+
+Create FastAPI endpoints:
+
+GET /students
+GET /students/{student_id}
+POST /predict
+GET /dashboard
+GET /alerts
+GET /recommendations/{student_id}
+POST /train-model
+GET /model-metrics
+
+Use proper validation and error handling.
+
+12. DATABASE
+
+Create:
+
+students
+- id
+- student_id
+- name
+- age
+- grade
+- previous_gpa
+- test_score
+- attendance_percentage
+- assignment_completion
+- lms_login_frequency
+- class_participation
+- behavior_score
+- risk_score
+- risk_level
+- created_at
+
+Additional tables:
+- predictions
+- alerts
+- recommendations
+- users
+
+Use migrations or an initialization script where appropriate.
+
+13. DEMO DATA
+
+Generate 50–100 fictional students.
+
+Include:
+- Low Risk
+- Medium Risk
+- High Risk
+
+Make data logically consistent.
+
+Examples:
+Low attendance + falling marks + low engagement → generally higher risk.
+
+High attendance + strong marks + high engagement → generally lower risk.
+
+Do not use real people's personal information.
+
+When the application starts for the first time, automatically create demo data if the database is empty.
+
+14. ALERTS PAGE
+
+Create "Early Warning Alerts".
+
+Example:
+
+HIGH RISK ALERT
+
+"Arun Kumar has crossed the high-risk threshold."
+
+Show:
+- Risk Score
+- Main reasons
+- View Student
+
+Filters:
+- All
+- High Risk
+- Medium Risk
+- Low Risk
+
+Alert states:
+- New
+- Reviewed
+- Resolved
+
+15. ANALYTICS PAGE
+
+Show:
+- Overall performance
+- Risk distribution
+- Attendance trends
+- Grade trends
+- Engagement trends
+- Risk factor analysis
+
+Filters:
+- Class
+- Grade
+- Risk level
+- Date/time period if supported
+
+16. RECOMMENDATIONS PAGE
+
+Columns:
+- Student
+- Risk
+- Main Problem
+- Recommended Intervention
+- Priority
+- Status
+
+17. SETTINGS
+
+Include:
+- Risk thresholds
+- Profile
+- Notification settings
+- Data privacy information
+
+Default:
+Low: 0–39
+Medium: 40–69
+High: 70–100
+
+Allow threshold changes where practical.
+
+18. PRIVACY
+
+Use:
+- Role-based access
+- Fictional/demo data
+- No unnecessary personal information
+- Clear access boundaries
+
+Do not implement complex privacy infrastructure unless needed.
+
+PROJECT STRUCTURE
+-----------------
+
+Create a clean structure such as:
+
+student-performance-analytics/
+
+frontend/
+    src/
+        components/
+        pages/
+        services/
+        charts/
+        styles/
+        App.jsx
+        main.jsx
+
+backend/
+    app/
+        main.py
+        routes/
+        models/
+        schemas/
+        services/
+        ml/
+        database/
+    requirements.txt
+
+data/
+    students.csv
+
+models/
+
+scripts/
+
+README.md
+
+Create reusable components:
+- Sidebar
+- Navbar
+- StatCard
+- RiskBadge
+- StudentTable
+- RiskChart
+- PerformanceChart
+- AttendanceChart
+- AlertCard
+- RecommendationCard
+- StudentProfile
+- PredictionForm
+- LoadingSpinner
+- ErrorMessage
+
+API INTEGRATION
+---------------
+
+The frontend must communicate with FastAPI.
+
+Do not hard-code dashboard values when API data is available.
+
+Use API calls for:
+- Students
+- Predictions
+- Alerts
+- Recommendations
+- Analytics
+- Dashboard statistics
+
+If backend is temporarily unavailable during UI development, use a clearly separated mock-data service that can be disabled.
+
+ERROR HANDLING
+--------------
+
+Implement:
+- API error handling
+- Loading states
+- Empty states
+- Invalid input validation
+- Prediction errors
+- Database errors
+
+Never show raw stack traces to users.
+
+RESPONSIVE DESIGN
+-----------------
+
+Support:
+- Desktop
+- Laptop
+- Tablet
+
+Primary focus: desktop teacher dashboard.
+
+DEMO FLOW
+---------
+
+Optimize for this exact hackathon demo:
+
+LOGIN
+  ↓
+DASHBOARD
+  ↓
+Show overall student risk distribution
+  ↓
+Open HIGH-RISK STUDENT
+  ↓
+Student Details
+  ↓
+Show Risk Score
+  ↓
+Explain WHY the student is at risk
+  ↓
+Show attendance/marks/engagement charts
+  ↓
+Show recommended intervention
+  ↓
+Open Prediction page
+  ↓
+Enter new student data
+  ↓
+Click Predict
+  ↓
+Show Risk Score + Risk Level
+  ↓
+Generate/View Alert
+
+The complete flow should be smooth enough for a 3–5 minute presentation.
+
+README
+------
+
+Create a complete README with:
+- Project name
+- Problem statement
+- Solution
+- Features
+- Architecture
+- Technology stack
+- Folder structure
+- Installation
+- Backend setup
+- Frontend setup
+- Database setup
+- ML setup
+- How to run
+- Demo credentials
+- API documentation
+- Future scope
+- Known limitations
+
+RUN COMMANDS
+------------
+
+Document exact commands.
+
+Backend example:
+
+python -m venv venv
+
+Windows:
+venv\Scripts\activate
+
+pip install -r requirements.txt
+
+uvicorn app.main:app --reload
+
+Frontend:
+
+npm install
+npm run dev
+
+Use the actual commands required by the generated project.
+
+TESTING
+-------
+
+Test:
+- Student creation
+- Student retrieval
+- Prediction
+- Risk classification
+- API endpoints
+- Invalid inputs
+- Recommendation generation
+
+Test at least:
+- Low-risk student
+- Medium-risk student
+- High-risk student
+
+FINAL VERIFICATION
+------------------
+
+Before declaring the project complete:
+
+1. Run backend.
+2. Run frontend.
+3. Test API connection.
+4. Test database.
+5. Test prediction.
+6. Test dashboard.
+7. Test student list.
+8. Test student details.
+9. Test alerts.
+10. Test recommendations.
+11. Check browser console.
+12. Check backend terminal.
+13. Fix import errors.
+14. Fix API errors.
+15. Verify navigation.
+16. Verify the complete demo flow.
+
+Do not simply say the project is complete.
+
+Actually inspect and test the implementation.
+
+If errors occur, diagnose and fix them.
+
+FINAL RESPONSE FROM YOU
+-----------------------
+
+After implementation, report:
+
+1. What was built
+2. Project structure
+3. How to start backend
+4. How to start frontend
+5. Demo login
+6. Main API endpoints
+7. ML approach
+8. Dataset details
+9. Known limitations
+10. 3–5 minute hackathon demo flow
+
+IMPORTANT:
+Build a functional prototype, not only a static UI.
+Prioritize reliability and demo quality.
+Do not add unnecessary features.
