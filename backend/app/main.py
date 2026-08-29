@@ -37,15 +37,7 @@ def init_app_state():
     except Exception as e:
         print(f"[Startup] Database initialization notice: {e}")
 
-    # Train or load ML model
-    model_path = os.path.join(PROJECT_ROOT, "models", "student_risk_model.joblib")
-    if not os.path.exists(model_path):
-        print("[Startup] Training initial Machine Learning models...")
-        try:
-            train_and_evaluate_models()
-        except Exception as e:
-            print(f"[Startup] Model training warning: {e}")
-
+    # Load pre-trained ML model directly (read-only, no re-training on serverless invocations)
     load_ml_model()
 
 @asynccontextmanager

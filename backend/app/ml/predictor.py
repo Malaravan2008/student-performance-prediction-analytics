@@ -9,19 +9,41 @@ from app.services.recommendation_engine import generate_recommendations
 
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.getenv("PROJECT_ROOT", os.path.abspath(os.path.join(FILE_DIR, "..", "..", "..")))
-MODEL_FILE = os.path.join(PROJECT_ROOT, "models", "student_risk_model.joblib")
+
+# Candidate model paths to ensure reliable loading across local and serverless Vercel environments
+CANDIDATE_MODEL_PATHS = [
+    os.path.join(PROJECT_ROOT, "models", "student_risk_model.joblib"),
+    os.path.join(PROJECT_ROOT, "backend", "models", "student_risk_model.joblib"),
+    os.path.abspath(os.path.join(FILE_DIR, "..", "..", "models", "student_risk_model.joblib")),
+    "/var/task/models/student_risk_model.joblib",
+    "/var/task/backend/models/student_risk_model.joblib",
+]
 
 _model_bundle = None
 
+def get_model_path() -> Optional[str]:
+    for path in CANDIDATE_MODEL_PATHS:
+        if os.path.exists(path):
+            return path
+    return None
+
 def load_ml_model():
     global _model_bundle
-    if os.path.exists(MODEL_FILE):
+    if _model_bundle is not None:
+        return _model_bundle
+
+    model_path = get_model_path()
+    if model_path:
         try:
-            _model_bundle = joblib.load(MODEL_FILE)
-            print(f"[ML Predictor] Successfully loaded model '{_model_bundle.get('model_name')}'")
+            _model_bundle = joblib.load(model_path)
+            print(f"[ML Predictor] Successfully loaded pre-trained model '{_model_bundle.get('model_name')}' from {model_path}")
         except Exception as e:
-            print(f"[ML Predictor] Failed to load model: {e}")
+            print(f"[ML Predictor] Notice: Failed to load model from {model_path}: {e}")
             _model_bundle = None
+    else:
+        print("[ML Predictor] Notice: Pre-trained ML model file not found in paths. Using formula rule engine.")
+        _model_bundle = None
+
     return _model_bundle
 
 def predict_student_risk(req: PredictRequest) -> PredictResponse:

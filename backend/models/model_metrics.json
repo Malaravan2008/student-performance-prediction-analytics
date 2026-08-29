@@ -1,0 +1,53 @@
+{
+  "selected_model": "RandomForestClassifier",
+  "dataset_size": 75,
+  "train_size": 60,
+  "test_size": 15,
+  "features": [
+    "previous_gpa",
+    "test_score",
+    "attendance_percentage",
+    "assignment_completion",
+    "lms_login_frequency",
+    "class_participation",
+    "behavior_score"
+  ],
+  "target": "risk_level",
+  "feature_importance": {
+    "previous_gpa": 0.1454,
+    "test_score": 0.1507,
+    "attendance_percentage": 0.196,
+    "assignment_completion": 0.1104,
+    "lms_login_frequency": 0.0909,
+    "class_participation": 0.1592,
+    "behavior_score": 0.1474
+  },
+  "benchmarks": [
+    {
+      "model_name": "RandomForestClassifier",
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "is_best": true
+    },
+    {
+      "model_name": "GradientBoostingClassifier",
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "is_best": false
+    },
+    {
+      "model_name": "LogisticRegression",
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "is_best": false
+    }
+  ],
+  "trained_at": "2026-08-28T09:32:47.572187",
+  "data_source_label": "Prototype Benchmark Dataset (Synthetic Fictional Cohort)"
+}
