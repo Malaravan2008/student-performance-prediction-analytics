@@ -8,7 +8,7 @@ from app.services.risk_engine import calculate_formula_risk
 from app.services.recommendation_engine import generate_recommendations
 
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.abspath(os.path.join(FILE_DIR, "..", "..", ".."))
+PROJECT_ROOT = os.getenv("PROJECT_ROOT", os.path.abspath(os.path.join(FILE_DIR, "..", "..", "..")))
 MODEL_FILE = os.path.join(PROJECT_ROOT, "models", "student_risk_model.joblib")
 
 _model_bundle = None

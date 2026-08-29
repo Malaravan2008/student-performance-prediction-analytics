@@ -165,20 +165,26 @@ def generate_fictional_student_dataset(n: int = 75) -> List[dict]:
 def seed_database_and_export_csv(db: Session, base_dir: str):
     """
     Checks if database is empty. If empty, seeds demo students, alerts, recommendations, user.
-    Also exports dataset to data/students.csv.
+    Also exports dataset to data/students.csv if the filesystem is writable.
     """
-    data_dir = os.path.join(base_dir, "data")
-    os.makedirs(data_dir, exist_ok=True)
-    csv_path = os.path.join(data_dir, "students.csv")
+    data_dir = os.getenv("DATA_DIR", os.path.join(base_dir, "data"))
+    try:
+        os.makedirs(data_dir, exist_ok=True)
+    except OSError:
+        pass
 
     student_count = db.query(Student).count()
     student_records = generate_fictional_student_dataset(75)
 
-    # Export to CSV for ML model training and external reference
-    df = pd.DataFrame(student_records)
-    csv_df = df.drop(columns=["academic_history", "attendance_history", "risk_factors"], errors="ignore")
-    csv_df.to_csv(csv_path, index=False)
-    print(f"[DataService] Exported {len(csv_df)} student records to {csv_path}")
+    # Export to CSV for ML model training and external reference if writable
+    try:
+        csv_path = os.path.join(data_dir, "students.csv")
+        df = pd.DataFrame(student_records)
+        csv_df = df.drop(columns=["academic_history", "attendance_history", "risk_factors"], errors="ignore")
+        csv_df.to_csv(csv_path, index=False)
+        print(f"[DataService] Exported {len(csv_df)} student records to {csv_path}")
+    except Exception as e:
+        print(f"[DataService] Notice: CSV export skipped ({e}). Continuing with DB seeding.")
 
     # 1. Seed Demo Teacher User if not already present
     existing_user = db.query(User).filter(User.email == "teacher@example.com").first()

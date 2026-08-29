@@ -7,6 +7,7 @@ This file:
   1. Resolves the repo root so path-sensitive code (ML model, SQLite) works correctly.
   2. Adds backend/ to sys.path so all existing `app.*` imports work unchanged.
   3. Re-exports the FastAPI `app` object — Vercel detects it automatically.
+  4. Pre-initializes tables, demo data, and ML model bundle on cold start.
 
 No application logic lives here. All routes, middleware, and startup logic
 remain in backend/app/main.py.
@@ -31,10 +32,12 @@ if _BACKEND_DIR not in sys.path:
 os.environ.setdefault("PROJECT_ROOT", _REPO_ROOT)
 
 # ---------------------------------------------------------------------------
-# Import the existing FastAPI application — no changes to app logic
+# Import the existing FastAPI application and initialize state
 # ---------------------------------------------------------------------------
-from app.main import app  # noqa: E402  (import not at top of file — intentional)
+from app.main import app, init_app_state  # noqa: E402
+
+# Ensure SQLite schema, demo dataset, and ML models are initialized for serverless
+init_app_state()
 
 # Vercel's @vercel/python runtime detects either `app` or `handler`.
-# Exporting both ensures compatibility across runtime versions.
 handler = app

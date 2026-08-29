@@ -21,20 +21,21 @@ from app.routes.recommendations import router as recommendations_router
 from app.routes.ml import router as ml_router
 
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.abspath(os.path.join(FILE_DIR, "..", ".."))
+PROJECT_ROOT = os.getenv("PROJECT_ROOT", os.path.abspath(os.path.join(FILE_DIR, "..", "..")))
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Startup: Create tables, Seed Demo Data, Train/Load ML Model
-    print("[Startup] Initializing database tables...")
-    Base.metadata.create_all(bind=engine)
-
-    db = SessionLocal()
+def init_app_state():
+    """Initializes database schema, seeds demo records if empty, and loads the ML model."""
     try:
-        print("[Startup] Verifying database seeding & CSV dataset...")
-        seed_database_and_export_csv(db, PROJECT_ROOT)
-    finally:
-        db.close()
+        print("[Startup] Initializing database tables...")
+        Base.metadata.create_all(bind=engine)
+        db = SessionLocal()
+        try:
+            print("[Startup] Verifying database seeding & demo dataset...")
+            seed_database_and_export_csv(db, PROJECT_ROOT)
+        finally:
+            db.close()
+    except Exception as e:
+        print(f"[Startup] Database initialization notice: {e}")
 
     # Train or load ML model
     model_path = os.path.join(PROJECT_ROOT, "models", "student_risk_model.joblib")
@@ -46,6 +47,10 @@ async def lifespan(app: FastAPI):
             print(f"[Startup] Model training warning: {e}")
 
     load_ml_model()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_app_state()
     print("[Startup] Application initialization complete.")
     yield
     print("[Shutdown] Cleaning up...")

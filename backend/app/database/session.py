@@ -7,10 +7,21 @@ from dotenv import load_dotenv
 load_dotenv()
 
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.abspath(os.path.join(FILE_DIR, "..", "..", ".."))
+PROJECT_ROOT = os.getenv("PROJECT_ROOT", os.path.abspath(os.path.join(FILE_DIR, "..", "..", "..")))
 
-DATA_DIR = os.getenv("DATA_DIR", os.path.join(PROJECT_ROOT, "data"))
-os.makedirs(DATA_DIR, exist_ok=True)
+# Determine writable data directory (use /tmp/data for Vercel / serverless if DATA_DIR not set)
+if os.getenv("DATA_DIR"):
+    DATA_DIR = os.getenv("DATA_DIR")
+elif os.getenv("VERCEL") or os.getenv("AWS_LAMBDA_FUNCTION_NAME") or os.getenv("NOW_REGION"):
+    DATA_DIR = "/tmp/data"
+else:
+    DATA_DIR = os.path.join(PROJECT_ROOT, "data")
+
+try:
+    os.makedirs(DATA_DIR, exist_ok=True)
+except OSError:
+    DATA_DIR = "/tmp/data"
+    os.makedirs(DATA_DIR, exist_ok=True)
 
 DEFAULT_SQLITE_URL = f"sqlite:///{os.path.join(DATA_DIR, 'student_analytics.db')}"
 DATABASE_URL = os.getenv("DATABASE_URL", DEFAULT_SQLITE_URL)
